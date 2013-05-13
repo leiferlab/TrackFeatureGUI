@@ -12,8 +12,7 @@ h = fspecial('gaussian',2.*[radiusSmooth radiusSmooth], radiusSmooth^.5);
 for k=1:N
     blurred=imfilter(I,h,'replicate'); 
     max_v = max(max(blurred));
-    
-    
+        
     % find the position of pixels having this value.
     [tempr, tempc] = find(blurred == max_v);
     %If two pixels have the same intensity, only take the first one

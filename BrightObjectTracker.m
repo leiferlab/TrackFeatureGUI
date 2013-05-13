@@ -173,7 +173,7 @@ status=1;
 
                 %Calculate cartesion distance between each currPt and the
                 %previous frame location
-                distForEachFeat=sqrt(sum((currPts-repMat(prevFrameLoc,size(currPts,1),1)).^2,2)); 
+                distForEachFeat=sqrt(sum((currPts-repmat(prevFrameLoc,size(currPts,1),1)).^2,2)); 
                 
                 %Find min
                 [~,minDistFeat]=min(distForEachFeat); %Find the index of the minimum(s)
@@ -529,7 +529,7 @@ status=1;
         uicontrol('Style','text',...
         'Units','Normalized',...
         'Position',[leftPosOfButtons+.22, .06,  .06, .03],...
-        'String',num2Str(featRadius),...
+        'String',num2str(featRadius),...
         'Tag','featRadiusText');    
     
             %Done
