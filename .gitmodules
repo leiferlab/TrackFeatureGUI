@@ -1,0 +1,3 @@
+[submodule "circFileBuff"]
+	path = circFileBuff
+	url = https://github.com/leiferlab/circFileBuff.git
