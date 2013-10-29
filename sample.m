@@ -1,14 +1,15 @@
 %This script is a sandbox for testing the TrackFeatureGUI
+addpath(circFileBuff);
 
 REVIEW_GREEN_CH=true;
 
 %Get INformation
-basefilename='G:\DualMag\20120220\lgc55_1_4\lgc55gc3_1_4t';
-digits=4;
+basefilename='/Users/leifer/Downloads/newstack/newstack';
+digits=3;
 extension='.tif';
 
-minRange=710;
-maxRange=720;
+minRange=1;
+maxRange=75;
 
 findNeuronsInRed=true;
 radiusSmooth=4;
@@ -17,7 +18,7 @@ radiusSmooth=4;
 load([basefilename '_analysis.mat']);
 
 greenChIs1=true;
-channelPrefix='c'
+channelPrefix='' %normally 'c'
 findNeuronsInRed=true;
     
     %Load only the red channels
