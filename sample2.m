@@ -38,3 +38,4 @@ findFeatures=getFindFeatureCandidatesHandle(5,radiusSmooth);
 [pointRed,~]=BrightObjectTracker(loadFrame,findFeatures,minRange,maxRange);
 
 
+delete(timerfindall); clear all; close all; clear classes;
