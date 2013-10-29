@@ -1,4 +1,4 @@
-function h=getLoadFrameHandleWithBuffer(basefilename,extension,filenameDigits,imInfo, findNeuronsInRed,FirstImNum,LastImNum)
+function h=getLoadFrameHandleWithBuffer(basefilename,extension,channelPrefix,filenameDigits,findNeuronsInRed,greenChIs1,FirstImNum,LastImNum)
 %This is a little crazy here. So basically this function returns a handle
 %to another function that the tracker will call everytime it wants to load
 %a frame.
@@ -14,7 +14,7 @@ h=@loadFrame;
     %when everything is initialized and will get passed into the buffer
     %machinery.
     function filename=getFileNameFromNumber(num)
-        filename=[basefilename sprintf(['%0' num2str(filenameDigits) 'd'],num)  extension];
+        filename=[basefilename sprintf(['%.' num2str(filenameDigits) 'd'],num)  extension];
 
     end
 
@@ -22,12 +22,8 @@ h=@loadFrame;
 
     %This is the function that the tracker calls whenever it wants a new
     %frame.
-    function [Iout, ret]=loadFrame(num)
-        %ret is zero (false) when things worked
-        %ret is one (true) when out of range
-
-        ret=false;
-                
+    function [I, ret]=loadFrame(num)
+        
                 
         if num<FirstImNum || num>LastImNum
             %Out of Range
@@ -50,10 +46,10 @@ h=@loadFrame;
 
                 %Read the first image to get filesize
                 filename=getFileNameFromNumber(num);
-                rawImInfo=imfinfo(filename);
+                iminfo=imfinfo(filename);
             
                 disp(['Getting image size information by inspecting ' filename ]);
-                imagesize=[rawImInfo.Width rawImInfo.Height];
+                imagesize=[iminfo.Width iminfo.Height];
 
                 %Actually create the new buffer machinery here.
                 circBuff=superFileBuff(bufferSize,imagesize,ListOfAllowedImageIDs,@getFileNameFromNumber);
@@ -64,21 +60,6 @@ h=@loadFrame;
             %Load in a frame by asking the buffer machinery to provide it
             I=circBuff.loadFile(num);
 
-            
-
-            %Split into two and align and such
-            [Ig Ir]=splitImageIntoChannels(I,imInfo);
-                
-                
-            if findNeuronsInRed==1
-                splitI=Ir;
-            else
-                splitI=Ig;
-            end
-            
-            Iout=splitI;
-            
-            
             ret=false; %We are in range
         end
         
